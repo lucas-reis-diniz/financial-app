@@ -1,5 +1,10 @@
+import 'dart:developer';
+import 'dart:ffi';
+
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:piloto/common/constants/app_colors.dart';
+import 'package:piloto/common/widgets/primary_button.dart';
 
 class OnboardingPage extends StatelessWidget {
   const OnboardingPage({super.key});
@@ -9,51 +14,81 @@ class OnboardingPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-        Expanded(
-          flex: 2,
-          child: Container(
-            color: AppColors.iceWhite,
-            child: Image.asset('assets/images/man.png'),
-          ),
-        ),
-        Text('Spend Smarter', style: TextStyle(fontSize: 36, fontFamily: 'Inter', fontWeight: FontWeight.w700, color: AppColors.mainColor),),
-        Text('Save More', style: TextStyle(fontSize: 36, fontFamily: 'Inter', fontWeight: FontWeight.w700, color: AppColors.mainColor),),
-        SizedBox(height: 20.0,),
-        ElevatedButton(onPressed: () {}, style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30.0),
-          ),
-          backgroundColor: AppColors.mainColor,
-          shadowColor: Colors.transparent,
-        ).copyWith(
-          elevation: MaterialStateProperty.all(0.0),
-          backgroundColor: MaterialStateProperty.all(AppColors.mainColor),
-        ), child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30.0),
-            gradient: const LinearGradient(
-              colors: [AppColors.mainColor, AppColors.mainColor],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+          Expanded(
+            flex: 2,
+            child: Container(
+              color: AppColors.iceWhite,
+              child: Image.asset('assets/images/man.png'),
             ),
           ),
-          child: SizedBox(width: 200, height: 50,
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
-                child: Text(
-                  'Get Started',
-                  style: TextStyle(fontSize: 16, fontFamily: 'Inter', fontWeight: FontWeight.bold, color: AppColors.white),
-                ),
-              ),
+          Text(
+            'Spend Smarter',
+            style: TextStyle(
+              fontSize: 36,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w700,
+              color: AppColors.mainColor,
             ),
           ),
-        ),),
-        SizedBox(height: 20.0,),
-        Text('Already have account? Log in', style: TextStyle(fontSize: 16, fontFamily: 'Inter', fontWeight: FontWeight.w500, color: AppColors.black),),
-        SizedBox(height: 50.0,)
-      ],),
+          Text(
+            'Save More',
+            style: TextStyle(
+              fontSize: 36,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w700,
+              color: AppColors.mainColor,
+            ),
+          ),
+          SizedBox(height: 20.0),
+            PrimaryButton(
+            text: 'Get Started',
+            textColor: Colors.white,
+            ),
+            SizedBox(height: 20.0),
+            CustomTextButton(texts: ['Already have account ?', 'Log in'],),
+          SizedBox(height: 50.0),
+        ],
+      ),
     );
   }
 }
+
+class CustomTextButton extends StatelessWidget {
+  final List<String> texts;
+  final VoidCallback? onPressed;
+  const CustomTextButton({
+    super.key, required this.texts, this.onPressed
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+    textAlign: TextAlign.center,
+    text: TextSpan(
+      text: 'Already have account? ',
+      style: TextStyle(
+      fontSize: 16,
+      fontFamily: 'Inter',
+      fontWeight: FontWeight.w500,
+      color: AppColors.black,
+      ),
+      children: [
+      TextSpan(
+        text: 'Log in',
+        style: TextStyle(
+        fontSize: 16,
+        fontFamily: 'Inter',
+        fontWeight: FontWeight.w500,
+        color: AppColors.mainColor,
+        ),
+        recognizer: TapGestureRecognizer()
+        ..onTap = () {
+          onPressed!();
+        },
+      ),
+      ],
+    ),
+    );
+  }
+}
+
