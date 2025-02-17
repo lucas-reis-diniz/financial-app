@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:piloto/common/constants/app_colors.dart';
+import 'package:piloto/common/themes/default_theme.dart';
+// ignore: unused_import
 import 'package:piloto/features/onboarding/onboarding_page.dart';
 import 'package:piloto/features/sign_up/signup_page.dart';
 // ignore: unused_import
@@ -10,6 +13,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: defaultTheme,
       home: SignUpPage(
         
       ),

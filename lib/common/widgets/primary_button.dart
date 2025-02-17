@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -44,7 +46,7 @@ class PrimaryButton extends StatelessWidget {
                 vertical: 15.0,
               ),
               child: Text(
-                'Get Started',
+                text,
                 style: TextStyle(
                   fontSize: 16,
                   fontFamily: 'Inter',
